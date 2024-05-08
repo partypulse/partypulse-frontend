@@ -1,20 +1,25 @@
 import React, {useState} from "react";
 import api from "../../api/api.js";
+import {useNavigate} from "react-router-dom";
 
 
 function LoginPage() {
+    const navigate=useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleLogin = () => {
+
         api.post('/login', { email, password })
             .then(response => {
                 const token = response.data.token;
+                const _userId = response.data._userId
                 localStorage.setItem('token', token);
+                localStorage.setItem('_userId', _userId);
+
                 window.alert("Successful login! :) ")
-                // Redirect the user to the homepage or dashboard
-                // You can use React Router for this purpose
+               navigate('/settings')
             })
             .catch(error => {
                 setError('Invalid email or password');

@@ -1,43 +1,38 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import StartPage from "./pages/start/startpage";
-import LoginPage from "./pages/login/loginpage";
-import RegisterPage from "./pages/register/registerpage";
-
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PublicNav from './components/TopbarPublic';
+import PrivateNav from './components/TopbarLoggedIn';
+import LoginPage from './pages/login/loginpage';
+import HomePage from './pages/start/startpage';
+import RegisterPage from './pages/register/registerpage';
+import SettingsPage from './pages//settings/settingspage';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
+import { isAuthenticated } from './utils/auth';
 
 function App() {
-    const [view, setView ] = useState("start");
+    return (
+        <Router>
+            <div className="App">
+                {isAuthenticated() ? <PrivateNav /> : <PublicNav />}
 
-  return (
-    <div className="App">
+                <div style={{marginTop:'5rem'}}>
 
-        <nav>
-        <button onClick={()=> setView("login")}>Login</button>
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/settings" element={
+                        <AuthenticatedRoute>
+                            <SettingsPage />
+                        </AuthenticatedRoute>
+                    } />
+                </Routes>
+                </div>
 
-        <button onClick={()=> setView("register")}>Register</button>
-
-        <button onClick={()=> setView("start")}>Home</button>
-
-        </nav>
-
-        {view==="start"&&(
-            <StartPage/>
-        )}
-
-        {view==="login"&&(
-            <LoginPage/>
-        )}
-
-        {view==="register"&&(
-            <RegisterPage/>
-        )}
-
-
-
-
-    </div>
-  );
+            </div>
+        </Router>
+    );
 }
 
 export default App;
