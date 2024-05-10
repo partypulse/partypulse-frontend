@@ -9,6 +9,8 @@ import RegisterPage from './pages/register/registerpage';
 import SettingsPage from './pages//settings/settingspage';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { isAuthenticated } from './utils/auth';
+import "./css/App.css";
+
 
 function App() {
     return (

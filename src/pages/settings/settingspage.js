@@ -15,10 +15,21 @@ function SettingsPage(){
             .then(response=>setUser(response.data))
             .catch(error=>console.error(error))
     }
-    return (
-       <div><h1>Settings page</h1>
 
-           {JSON.stringify(user)}</div>
+    const handleLogout = () => {
+        localStorage.removeItem('_userId');
+        localStorage.removeItem('token');
+
+        window.location.href = '/login';
+    }
+
+
+    return (
+        <div>
+            <h1>Settings page</h1>
+            {JSON.stringify(user)}
+            <button onClick={handleLogout}>Logga ut</button>
+        </div>
     );
 
 }
