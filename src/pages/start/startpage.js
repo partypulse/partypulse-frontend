@@ -1,8 +1,24 @@
 import React, {useState, useEffect} from "react";
 import api from "../../api/api.js";
 import "../../css/productlist.css";
+import "../../components/SideMenu";
 
 function StartPage(){
+
+    // Definiera lokal state för kategorier och sidomenyöppning
+    const [categories, setCategories] = useState([]); // Antag att categories är en array med kategorier
+    const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+
+    // Funktion för att öppna sidomenyn
+    const openSideMenu = () => {
+        setIsSideMenuOpen(true);
+    };
+
+    // Funktion för att stänga sidomenyn
+    const closeSideMenu = () => {
+        setIsSideMenuOpen(false);
+    };
+
 
     const [products, setProducts] = useState([]);
 

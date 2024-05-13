@@ -10,12 +10,16 @@ import SettingsPage from './pages//settings/settingspage';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { isAuthenticated } from './utils/auth';
 import "./css/App.css";
+import Navigation from './components/Navigation';
+
+
 
 
 function App() {
     return (
         <Router>
             <div className="App">
+            <Navigation/>
                 {isAuthenticated() ? <PrivateNav /> : <PublicNav />}
 
                 <div style={{marginTop:'5rem'}}>
@@ -30,6 +34,7 @@ function App() {
                         </AuthenticatedRoute>
                     } />
                 </Routes>
+
                 </div>
 
             </div>

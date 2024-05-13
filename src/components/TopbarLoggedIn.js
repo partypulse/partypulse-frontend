@@ -1,15 +1,15 @@
 // src/components/PrivateNav.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { logout } from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
+//import { logout } from '../utils/auth';
+//import { useNavigate } from 'react-router-dom';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+//import Button from "@mui/material/Button";
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
 import { mdiHeartOutline } from '@mdi/js';
@@ -21,13 +21,13 @@ import { mdiRocketLaunchOutline } from '@mdi/js';
 
 const TopbarLoggedIn = () => {
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
-    // takes user to homepage when logging out
+   /* // takes user to homepage when logging out
     const handleLogout = () => {
         logout();
         navigate('/');
-    };
+    };*/
 
     return (
 
