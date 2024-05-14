@@ -1,20 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from "../../api/api";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
-const ProductList = ({ products }) => {
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await api.get("/products");
+                setProducts(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getData();
+    }, []);
+
+    const handleViewDetails = (id) => {
+        navigate(`/product/${id}`);
+    };
+
     return (
         <div className="start-page">
             <h1>Startsida</h1>
             <div className="product-grid">
                 {products.map(product => (
-                    <div key={product._id} className="product-card">
-                        <img src={product.image} alt={product.name} />
-                        <div className="product-details">
-                            <h2>{product.name}</h2>
-                            <p>{product.info}</p>
-                            <p>Price: {product.price} SEK</p>
-                            <p>Stock: {product.stock}</p>
-                        </div>
-                    </div>
+                    <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image={product.image}
+                                alt={product.name}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {product.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {product.info}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Price: {product.price} SEK
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Stock: {product.stock}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button size="small" color="primary" onClick={() => handleViewDetails(product._id)}>
+                                View Details
+                            </Button>
+                        </CardActions>
+                    </Card>
                 ))}
             </div>
         </div>

@@ -11,6 +11,8 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { isAuthenticated } from './utils/auth';
 import "./css/App.css";
 import Navigation from './components/Navigation';
+import StartPage from "./pages/start/startpage";
+import ProductPage from './pages/productdetail/ProductPage';
 
 
 
@@ -31,11 +33,15 @@ function App() {
                     <Route path="/settings" element={
                         <AuthenticatedRoute>
                             <SettingsPage />
-                        </AuthenticatedRoute>
-                    } />
+                        </AuthenticatedRoute>  }/>
+
+                    <Route path="/" element={<StartPage />} />
+                    <Route path="/product/:id" element={<ProductPage />} />
+
                 </Routes>
 
                 </div>
+
 
             </div>
         </Router>
