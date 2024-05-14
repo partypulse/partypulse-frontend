@@ -13,7 +13,7 @@ import "./css/App.css";
 import Navigation from './components/Navigation';
 import StartPage from "./pages/start/startpage";
 import ProductPage from './pages/productdetail/ProductPage';
-
+import CartPage from './pages/cart/CartPage';
 
 
 
@@ -37,6 +37,7 @@ function App() {
 
                     <Route path="/" element={<StartPage />} />
                     <Route path="/product/:id" element={<ProductPage />} />
+                    <Route path="/cart" element={<CartPage/>} />
 
                 </Routes>
 

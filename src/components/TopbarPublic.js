@@ -29,7 +29,6 @@ export default function TopbarPublic() {
     };
 
     return (
-
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
@@ -43,11 +42,13 @@ export default function TopbarPublic() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}> <Link to="/">Home</Link> </Typography>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}><Link to="/">Home</Link> </Typography>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}><Link to="/login">Login</Link> </Typography>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}><Link to="/register">Register</Link> </Typography>
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', gap: '1rem', alignItems: 'center', alignContent: 'center' }}>
+
+                        {/* Account */}
                         <Link to="/settings">
                             <Icon path={mdiAccount}
                                   title="Logga in på mina sidor"
@@ -58,13 +59,21 @@ export default function TopbarPublic() {
                                   color="white" />
                         </Link>
 
+                        {/* Heart */}
+                        <Link to="/favorites">
                         <Icon path={mdiHeartOutline}
                               title="Favoriter"
                               size={1.2}
                         />
+                        </Link>
+
+                        {/* Cart */}
+                        <Link to="/cart">
                         <Icon path={mdiCart}
                               size={1.2}
                               title="Varukorg" />
+                        </Link>
+
                     </Box>
 
                 </Toolbar>

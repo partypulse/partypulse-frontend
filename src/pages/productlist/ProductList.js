@@ -29,7 +29,6 @@ const ProductList = () => {
 
     return (
         <div className="start-page">
-            <h1>Startsida</h1>
             <div className="product-grid">
                 {products.map(product => (
                     <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }}>
