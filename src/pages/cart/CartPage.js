@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActions } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const CartPage = () => {
     const [cart, setCart] = useState([]);
@@ -14,41 +11,64 @@ const CartPage = () => {
     }, []);
 
     const handleRemoveFromCart = (id) => {
-        const updatedCart = cart.filter(item => item._id !== id);
+        let updatedCart = [...cart];
+        const productIndex = updatedCart.findIndex(item => item._id === id);
+
+        if (productIndex !== -1) {
+            if (updatedCart[productIndex].quantity > 1) {
+                updatedCart[productIndex].quantity -= 1;
+            } else {
+                updatedCart.splice(productIndex, 1);
+            }
+        }
+
         setCart(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
 
-    return (
-        <div className="cart-page">
-            <h1>Varukorgen</h1>
-            <div className="cart-grid">
-                {cart.map(product => (
-                    <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }}>
-                        <CardMedia
-                            component="img"
-                            height="50"
-                            image={product.image}
-                            alt={product.name}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {product.name}
-                            </Typography>
+    // sums the price of all products in the cart based on their quantity.
+    const calculateTotalPrice = () => {
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    };
 
-                            <Typography variant="body2" color="text.secondary">
-                                Price: {product.price} SEK
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small" color="primary" onClick={() => handleRemoveFromCart(product._id)}>
-                                Remove
-                            </Button>
-                        </CardActions>
-                    </Card>
-                ))}
-            </div>
-        </div>
+    return (
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Artikel</TableCell>
+                        <TableCell>Namn</TableCell>
+                        <TableCell>Antal</TableCell>
+                        <TableCell>Pris per styck</TableCell>
+                        <TableCell>Totalt</TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {cart.map(item => (
+                        <TableRow key={item._id}>
+                            <TableCell>
+                                <img src={item.image} alt={item.name} style={{ width: '50px', height: '50px' }} />
+                            </TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell>{item.quantity}</TableCell>
+                            <TableCell>{item.price} SEK</TableCell>
+                            <TableCell>{item.price * item.quantity} SEK</TableCell>
+                            <TableCell>
+                                <IconButton onClick={() => handleRemoveFromCart(item._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                    <TableRow>
+                        <TableCell colSpan={4} align="right">Total</TableCell>
+                        <TableCell>{calculateTotalPrice()} SEK</TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 

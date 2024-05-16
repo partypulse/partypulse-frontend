@@ -41,7 +41,14 @@ const ProductPage = () => {
     // localStorage.setItem: Updates the cart in localStorage with the new product.
     const handleAddToCart = () => {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(product);
+        const productInCart = cart.find(item => item._id === product._id);
+
+        if (productInCart) {
+            productInCart.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+
         localStorage.setItem('cart', JSON.stringify(cart));
     };
 
