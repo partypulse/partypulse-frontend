@@ -14,7 +14,7 @@ import Navigation from './components/Navigation';
 import StartPage from "./pages/start/startpage";
 import ProductPage from './pages/productdetail/ProductPage';
 import CartPage from './pages/cart/CartPage';
-
+import FavoritesPage from './pages/favorites/FavoritesPage';
 
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
                     <Route path="/" element={<StartPage />} />
                     <Route path="/product/:id" element={<ProductPage />} />
                     <Route path="/cart" element={<CartPage/>} />
+                    <Route path="/favorites" element={<FavoritesPage/>} />
 
                 </Routes>
 

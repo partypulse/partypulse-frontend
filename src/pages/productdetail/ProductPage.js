@@ -81,7 +81,7 @@ const[loading,setLoading]=useState(false);
 
     const handleReviewSubmit = () => {
         setLoading(true)
-        // Här kan du lägga till logik för att skicka recensionen till en server eller spara den lokalt
+        // ***** TO DO!!!!! lägga till logik för att skicka recensionen till en server eller spara den lokalt
         console.log(`Review submitted: ${review}, Rating: ${rating}`);
     };
 
@@ -92,7 +92,7 @@ const[loading,setLoading]=useState(false);
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', margin: '20px auto', maxWidth: 1200}}>
-        <Card sx={{ flex: 1, marginRight: 2 }}>
+        <Card sx={{ flex: 1, marginRight: 2, position:'relative' }}>
             <CardMedia
                 component="img"
                 height="500"

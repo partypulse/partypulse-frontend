@@ -64,6 +64,7 @@ export default function TopbarPublic() {
                         <Icon path={mdiHeartOutline}
                               title="Favoriter"
                               size={1.2}
+                              color="white"
                         />
                         </Link>
 
