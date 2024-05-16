@@ -12,6 +12,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from 'react-rating-stars-component';
 import {Add} from "@mui/icons-material";
+import FavoriteButton from '../../components/FavoriteButton';
 
 export const style={
     button:{
@@ -31,7 +32,10 @@ const ProductPage = () => {
     const [quantity, setQuantity] = useState(1);
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
-const[loading,setLoading]=useState(false);
+    const [loading,setLoading]=useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+
     // useEffect: A hook that allows us to perform side effects in functional components.
     // Here it is used to retrieve product data from the API when the component is loaded or when the id is changed.
     useEffect(() => {
@@ -41,10 +45,18 @@ const[loading,setLoading]=useState(false);
             try {
                 const response = await api.get(`/products/${id}`);
                 setProduct(response.data);
+                checkIfFavorite(response.data);
             } catch (error) {
                 console.error(error);
             }
         };
+
+        const checkIfFavorite = (product) => {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const isFav = favorites.some(item => item._id === product._id);
+            setIsFavorite(isFav);
+        };
+
         // Immediate executing function to handle the asynchrony correctly
         (async () => {
             await getProduct();
@@ -99,13 +111,11 @@ const[loading,setLoading]=useState(false);
                 image={product.image}
                 alt={product.name}
             />
-            <IconButton
-                sx={{position: 'absolute', top: 16, right: 16}}
-                color="secondary"
-                onClick={handleFavorite}
-            >
-                <FavoriteIcon/>
-            </IconButton>
+            <FavoriteButton
+                product={product}
+                isFavorite={isFavorite}
+                onToggleFavorite={() => setIsFavorite(!isFavorite)}
+            />
         </Card>
         <Card sx={{flex: 2}}>
             <CardContent>

@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import FavoriteButton from '../../components/FavoriteButton';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -51,6 +52,17 @@ const ProductList = () => {
                                 height="140"
                                 image={product.image}
                                 alt={product.name}
+                            />
+                            <FavoriteButton
+                                product={product}
+                                isFavorite={isFavorite}
+                                onToggleFavorite={() => {
+                                    const newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                                    const updatedFavorites = isFavorite
+                                        ? newFavorites.filter(item => item._id !== product._id)
+                                        : [...newFavorites, product];
+                                    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+                                }}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
