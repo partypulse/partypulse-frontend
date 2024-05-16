@@ -27,11 +27,24 @@ const ProductList = () => {
         navigate(`/product/${id}`);
     };
 
+    const handleAddToCart = (product, increment = 1) => {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const productInCart = cart.find(item => item._id === product._id);
+
+        if (productInCart) {
+            productInCart.quantity += increment;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+    };
+
     return (
         <div className="start-page">
             <div className="product-grid">
                 {products.map(product => (
-                    <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }}>
+                    <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }} onClick={() => handleViewDetails(product._id)}>
                         <CardActionArea>
                             <CardMedia
                                 component="img"
@@ -43,9 +56,7 @@ const ProductList = () => {
                                 <Typography gutterBottom variant="h5" component="div">
                                     {product.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {product.info}
-                                </Typography>
+
                                 <Typography variant="body2" color="text.secondary">
                                     Price: {product.price} SEK
                                 </Typography>
@@ -55,8 +66,8 @@ const ProductList = () => {
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
-                            <Button size="small" color="primary" onClick={() => handleViewDetails(product._id)}>
-                                View Details
+                            <Button size="medium" color="primary" onClick={handleAddToCart}>
+                                Add to Cart
                             </Button>
                         </CardActions>
                     </Card>

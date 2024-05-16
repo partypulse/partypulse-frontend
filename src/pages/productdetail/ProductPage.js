@@ -6,13 +6,32 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActions } from '@mui/material';
+import {Button, CardActions, IconButton, Box, TextField, Grid, CircularProgress} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Rating from 'react-rating-stars-component';
+import {Add} from "@mui/icons-material";
 
+export const style={
+    button:{
+        padding:'2rem',color:'red'
+    },
+    div:{
+        padding:'5rem'
+    },
+    h4:{
+        fontSize:'5rem'
+    }
+}
 const ProductPage = () => {
     // get id from url
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-
+    const [quantity, setQuantity] = useState(1);
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('');
+const[loading,setLoading]=useState(false);
     // useEffect: A hook that allows us to perform side effects in functional components.
     // Here it is used to retrieve product data from the API when the component is loaded or when the id is changed.
     useEffect(() => {
@@ -39,17 +58,31 @@ const ProductPage = () => {
     // JSON.parse: Loads and parses JSON format from localStorage. If there is nothing stored, an empty array is used.
     // cart.push(product): Adds the current product to the cart.
     // localStorage.setItem: Updates the cart in localStorage with the new product.
-    const handleAddToCart = () => {
+    const handleAddToCart = (increment = 1) => {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const productInCart = cart.find(item => item._id === product._id);
 
         if (productInCart) {
-            productInCart.quantity += 1;
+            productInCart.quantity += increment;
         } else {
-            cart.push({ ...product, quantity: 1 });
+            cart.push({ ...product, quantity: increment });
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
+    };
+
+    const handleFavorite = () => {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (!favorites.some(item => item._id === product._id)) {
+            favorites.push(product);
+        }
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    };
+
+    const handleReviewSubmit = () => {
+        setLoading(true)
+        // Här kan du lägga till logik för att skicka recensionen till en server eller spara den lokalt
+        console.log(`Review submitted: ${review}, Rating: ${rating}`);
     };
 
     // Loading State: If product is null, which means the product is still loading, "Loading..." will appear on the screen.
@@ -58,13 +91,23 @@ const ProductPage = () => {
     }
 
     return (
-        <Card sx={{ maxWidth: 600, margin: '20px auto' }}>
+        <Box sx={{display: 'flex', flexDirection: 'row', margin: '20px auto', maxWidth: 1200}}>
+        <Card sx={{ flex: 1, marginRight: 2 }}>
             <CardMedia
                 component="img"
                 height="500"
                 image={product.image}
                 alt={product.name}
             />
+            <IconButton
+                sx={{position: 'absolute', top: 16, right: 16}}
+                color="secondary"
+                onClick={handleFavorite}
+            >
+                <FavoriteIcon/>
+            </IconButton>
+        </Card>
+        <Card sx={{flex: 2}}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {product.name}
@@ -78,13 +121,59 @@ const ProductPage = () => {
                 <Typography variant="body2" color="text.secondary">
                     Stock: {product.stock}
                 </Typography>
+
+                <Box sx={{display: 'flex', alignItems: 'center', marginTop: 2}}>
+                    <IconButton onClick={() => setQuantity(Math.max(quantity - 1, 1))}>
+                        <RemoveIcon/>
+                    </IconButton>
+                    <Typography variant="body1">{quantity}</Typography>
+                    <IconButton onClick={() => setQuantity(quantity + 1)}>
+                        <AddIcon/>
+                    </IconButton>
+                </Box>
+
+                <CardActions>
+                    <Button
+                        size="medium"
+                        color="primary"
+                        onClick={handleAddToCart(quantity)}>
+                        Lägg i varukorg
+                    </Button>
+                </CardActions>
+                <Box sx={{marginTop: 4}}>
+                    <Typography variant="h6" component="div">
+                        Lämna omdöme
+                    </Typography>
+                    <Rating
+                        count={5}
+                        size={24}
+                        activeColor="#ffd700"
+                        value={rating}
+                        onChange={(newRating) => setRating(newRating)}
+                    />
+                    <TextField
+                        label="Skriv en recension"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        fullWidth
+                        sx={{marginTop: 2}}
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{marginTop: 2,background:loading?'red':'green',color:loading?'blue':'yellow',padding:loading?'4rem':'1rem'}}
+                        onClick={handleReviewSubmit}
+                        startIcon={loading?<CircularProgress/>:<Add/>}
+                    >
+                        Skicka en recension
+                    </Button>
+                </Box>
             </CardContent>
-            <CardActions>
-                <Button size="medium" color="primary" onClick={handleAddToCart}>
-                    Add to Cart
-                </Button>
-            </CardActions>
         </Card>
+</Box>
     );
 };
 
