@@ -15,6 +15,10 @@ import StartPage from "./pages/start/startpage";
 import ProductPage from './pages/productdetail/ProductPage';
 import CartPage from './pages/cart/CartPage';
 import FavoritesPage from './pages/favorites/FavoritesPage';
+import Footer from "./components/Footer";
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import FaqPage from './pages/FaqPage';
 
 
 function App() {
@@ -40,8 +44,14 @@ function App() {
                     <Route path="/cart" element={<CartPage/>} />
                     <Route path="/favorites" element={<FavoritesPage/>} />
 
+                    <Route path="/terms" element={<TermsPage />} />
+                    <Route path="/privacy" element={<PrivacyPage />} />
+                    <Route path="/faq" element={<FaqPage />} />
+
+
                 </Routes>
 
+                    <Footer />
                 </div>
 
 

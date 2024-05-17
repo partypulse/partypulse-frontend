@@ -30,7 +30,14 @@ export default function TopbarPublic() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static"
+                    sx={{
+                        backgroundColor: '#ffcccb',
+                        color: '#000',
+                        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                        padding: '10px 0',
+                    }}
+            >
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -39,6 +46,7 @@ export default function TopbarPublic() {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                         onClick={toggleSideMenu} // Anropa handleMenuIconClick när ikonen klickas
+
                     >
                         <MenuIcon />
                     </IconButton>
@@ -69,10 +77,13 @@ export default function TopbarPublic() {
                         </Link>
 
                         {/* Cart */}
-                        <Link to="/cart">
+                        <Link to="/cart"
+                        >
                         <Icon path={mdiCart}
                               size={1.2}
-                              title="Varukorg" />
+                              title="Varukorg"
+                        
+                        />
                         </Link>
 
                     </Box>

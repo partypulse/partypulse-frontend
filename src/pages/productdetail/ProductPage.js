@@ -155,7 +155,18 @@ const ProductPage = () => {
                     <Button
                         size="medium"
                         color="primary"
-                        onClick={handleAddToCart(quantity)}>
+                        onClick={handleAddToCart(quantity)}
+                        sx={{
+                            backgroundColor: '#7bc451',
+                            color: '#fff',
+                            padding: '10px 20px',
+                            borderRadius: '8px',
+                            '&:hover': {
+                                backgroundColor: '#2bc700',
+                                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                            },
+                        }}
+                    >
                         Lägg i varukorg
                     </Button>
                 </CardActions>
