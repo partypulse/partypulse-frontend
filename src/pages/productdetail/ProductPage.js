@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Button, CardActions, IconButton, Box, TextField, Grid, CircularProgress} from '@mui/material';
+import {Button, CardActions, IconButton, Box, TextField, Grid, CircularProgress, Alert} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -34,6 +34,7 @@ const ProductPage = () => {
     const [review, setReview] = useState('');
     const [loading,setLoading]=useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [error, setError]=useState(null);
 
 
     // useEffect: A hook that allows us to perform side effects in functional components.
@@ -43,21 +44,29 @@ const ProductPage = () => {
         // If the call succeeds, product is updated with the retrieved data. If it fails, the error is logged to the console.
         const getProduct = async () => {
             try {
+                // calling api to get data based on id
                 const response = await api.get(`/products/${id}`);
+                // Updates the product state variable with data retrieved from the API.
                 setProduct(response.data);
+                // Calls the checkIfFavorite function to check if the fetched product is a favorite and updates the isFavorite state.
                 checkIfFavorite(response.data);
             } catch (error) {
-                console.error(error);
+                console.error("Failed to fetch product:", error);
+                setError("Kunde inte hämta produktdata. Vänligen försök igen senare.");
             }
         };
 
         const checkIfFavorite = (product) => {
+            // Gets the favorites list from localStorage and converts it from a JSON string to a JavaScript object. If no favorites list exists, an empty array is used.
             const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            // checks if prod is in the list.
             const isFav = favorites.some(item => item._id === product._id);
+            // updates state dep if it's a fav or not.
             setIsFavorite(isFav);
         };
 
-        // Immediate executing function to handle the asynchrony correctly
+        // Immediately Invoked Function Expression
+        // Immediate executing function to handle the asynchronous correctly = when component is loading or id is changing
         (async () => {
             await getProduct();
         })();
@@ -83,13 +92,7 @@ const ProductPage = () => {
         localStorage.setItem('cart', JSON.stringify(cart));
     };
 
-    const handleFavorite = () => {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        if (!favorites.some(item => item._id === product._id)) {
-            favorites.push(product);
-        }
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    };
+
 
     const handleReviewSubmit = () => {
         setLoading(true)
@@ -104,6 +107,9 @@ const ProductPage = () => {
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', margin: '20px auto', maxWidth: 1200}}>
+            {error && (
+                <Alert severity="error" sx={{ width:'100%', marginBottom:2}}>{error}</Alert>
+            )}
         <Card sx={{ flex: 1, marginRight: 2, position:'relative' }}>
             <CardMedia
                 component="img"
@@ -112,8 +118,11 @@ const ProductPage = () => {
                 alt={product.name}
             />
             <FavoriteButton
+                // sending props
                 product={product}
+                // boolean, indicates if prod is a fav => correct icon
                 isFavorite={isFavorite}
+                // callback func when user presses heart-icon.
                 onToggleFavorite={() => setIsFavorite(!isFavorite)}
             />
         </Card>

@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, Box } from '@mui/material';
 import FavoriteButton from '../../components/FavoriteButton';
 
 const ProductList = () => {
@@ -21,6 +21,7 @@ const ProductList = () => {
                 console.error(error);
             }
         };
+
         getData();
     }, []);
 
@@ -42,50 +43,37 @@ const ProductList = () => {
     };
 
     return (
-        <div className="start-page">
-            <div className="product-grid">
-                {products.map(product => (
-                    <Card key={product._id} sx={{ maxWidth: 345, margin: 2 }} onClick={() => handleViewDetails(product._id)}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={product.image}
-                                alt={product.name}
-                            />
-                            <FavoriteButton
-                                product={product}
-                                isFavorite={isFavorite}
-                                onToggleFavorite={() => {
-                                    const newFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-                                    const updatedFavorites = isFavorite
-                                        ? newFavorites.filter(item => item._id !== product._id)
-                                        : [...newFavorites, product];
-                                    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-                                }}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {product.name}
-                                </Typography>
-
-                                <Typography variant="body2" color="text.secondary">
-                                    Price: {product.price} SEK
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Stock: {product.stock}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                            <Button size="medium" color="primary" onClick={handleAddToCart}>
-                                Add to Cart
-                            </Button>
-                        </CardActions>
-                    </Card>
-                ))}
-            </div>
-        </div>
+        <Box className="start-page" sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2 }}>
+            {products.map(product => (
+                <Card key={product._id} sx={{ maxWidth: 345, margin: 2, position: 'relative' }}>
+                    <CardActionArea onClick={() => handleViewDetails(product._id)}>
+                        <CardMedia
+                            component="img"
+                            height="140"
+                            image={product.image}
+                            alt={product.name}
+                        />
+                        <FavoriteButton product={product} />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {product.name}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                Price: {product.price} SEK
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                Stock: {product.stock}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button size="medium" color="primary" onClick={() => handleAddToCart(product)}>
+                            Add to Cart
+                        </Button>
+                    </CardActions>
+                </Card>
+            ))}
+        </Box>
     );
 };
 
