@@ -82,7 +82,7 @@ export default function TopbarPublic() {
                         <Icon path={mdiCart}
                               size={1.2}
                               title="Varukorg"
-                        
+
                         />
                         </Link>
 
