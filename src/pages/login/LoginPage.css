@@ -1,0 +1,32 @@
+.login-background-sol {
+  height: 100vh;
+}
+.login-background {
+  height: 100vh;
+}
+
+.login-container {
+  width: 90vw;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  height: 100vh;
+  margin: 0 auto;
+}
+.login-card-sol {
+  width: 550px;
+  z-index: 1000;
+  padding: 1rem;
+  position: relative;
+}
+.login-card {
+  width: 450px;
+  z-index: 1000;
+  padding: 1rem;
+  position: relative;
+}
+.login-button {
+  color: white;
+  border-radius: 5px;
+}

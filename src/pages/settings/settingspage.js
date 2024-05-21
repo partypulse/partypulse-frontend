@@ -1,38 +1,177 @@
-import React, {useEffect, useState} from 'react';
-import api from "../../api/api.js";
+import React, { useEffect, useState } from "react";
+import {
+  CircularProgress,
+  FormControl,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import api from "../../api/api";
 
-function SettingsPage(){
-    const[user,setUser]=useState({
+export default function UserSettingsPage() {
+  const [data, setData] = useState({});
 
-    });
+  const [hasUpdated, setHasUpdated] = useState(false);
+  const [loading, isLoading] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState("");
+  const [updateType, setUpdateType] = useState("");
+  useEffect(() => {
+    getUser();
+  }, []);
 
-    useEffect(() => {
-        getData()
-    }, []);
+  const getUser = () => {
+    api
+      .get("/user/getuser/" + localStorage.getItem("_userId"))
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => console.error(error));
+  };
 
-    const getData=()=>{
-        api.get(`/user/getuser/${localStorage.getItem('_userId')}`)
-            .then(response=>setUser(response.data))
-            .catch(error=>console.error(error))
-    }
+  const handleChange = (event) => {
+    const requestObject = {
+      ...data,
+      [event.target.name]: event.target.value,
+    };
+    setData(requestObject);
+  };
 
-    const handleLogout = () => {
-        localStorage.removeItem('_userId');
-        localStorage.removeItem('token');
+  function saveToServer(requestObject) {
+    isLoading(true);
+    api
+      .post("/user/updateuser", requestObject)
+      .then(() => {
+        isLoading(false);
+        setUpdateMessage("Sparat!");
+        setHasUpdated(true);
+        setUpdateType("success");
+        window.location.reload();
+        setTimeout(() => {
+          setUpdateMessage("");
+          setHasUpdated(false);
+          setUpdateType(null);
+        }, 2000);
+      })
+      .catch(function (error) {
+        isLoading(false);
+        setUpdateMessage("Okänt fel - det gick inte att spara");
+        setUpdateType("error");
+        setHasUpdated(true);
+        setTimeout(() => {
+          setUpdateMessage("");
+          setHasUpdated(false);
+          setUpdateType(null);
+        }, 2000);
+      });
+  }
 
-        window.location.href = '/login';
-    }
-
-
-    return (
-        <div>
-            <h1>Settings page</h1>
-            {JSON.stringify(user)}
-            <button onClick={handleLogout}>Logga ut</button>
-        </div>
-    );
-
+  return (
+    <Grid container>
+      {hasUpdated && (
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: "right",
+            display: "flex",
+            gap: "1rem",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "right",
+          }}
+        >
+          <Typography variant="body1" style={{ color: "green" }}>
+            {updateMessage}
+          </Typography>
+        </Grid>
+      )}
+      {loading && !hasUpdated && (
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: "right",
+            display: "flex",
+            gap: "1rem",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "right",
+          }}
+        >
+          <CircularProgress size="1rem" style={{ color: "gray" }} /> Sparar...
+        </Grid>
+      )}
+      <Grid item xs={12} sx={{ padding: "1rem" }}>
+        <h3>Användarinställningar</h3>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Grid container spacing={2} sx={{ padding: "1rem" }}>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth margin="dense">
+              <TextField
+                id="firstName"
+                name="firstName"
+                size="small"
+                helperText="Förnamn"
+                value={data.firstname}
+                variant="outlined"
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth margin="dense">
+              <TextField
+                id="lastName"
+                size="small"
+                name="lastName"
+                helperText="Efternamn"
+                value={data.lastname}
+                variant="outlined"
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth margin="dense">
+              <TextField
+                id="email"
+                name="email"
+                size="small"
+                helperText="Epost"
+                value={data.email}
+                variant="outlined"
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth margin="dense">
+              <TextField
+                id="password"
+                name="password"
+                size="small"
+                helperText="Lösenord"
+                value={data.password}
+                variant="outlined"
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: "right" }}>
+            <LoadingButton
+              size="large"
+              variant="contained"
+              sx={{ textTransform: "none" }}
+              loading={loading}
+              onClick={() => saveToServer(data)}
+            >
+              Spara
+            </LoadingButton>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
 }
-
-
-export default SettingsPage;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActions, Box, Snackbar } from '@mui/material';
-import MuiAlert from '@mui/material/Alert';
+import React, { useEffect, useState } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Box, Button, CardActions, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 const FavoritesPage = () => {
     const [favorites, setFavorites] = useState([]);

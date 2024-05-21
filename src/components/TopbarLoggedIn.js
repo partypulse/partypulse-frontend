@@ -1,96 +1,171 @@
-// src/components/PrivateNav.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-//import { logout } from '../utils/auth';
-//import { useNavigate } from 'react-router-dom';
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-//import Button from "@mui/material/Button";
-import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
-import { mdiHeartOutline } from '@mdi/js';
-import { mdiCart } from '@mdi/js';
-import { mdiPartyPopper } from '@mdi/js';
-import { mdiRocketLaunchOutline } from '@mdi/js';
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
+function TopbarLoggedIn() {
+  const { logout } = useAuth();
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-const TopbarLoggedIn = () => {
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
-    //const navigate = useNavigate();
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
-   /* // takes user to homepage when logging out
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };*/
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/start"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
 
-    return (
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <Link to={"/products"}>
+                <MenuItem>
+                  <Typography textAlign="center">Produkter</Typography>
+                </MenuItem>
+              </Link>
+            </Menu>
+          </Box>
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Link to={"/products"}>
+              <MenuItem>
+                <Typography textAlign="center">Produkter</Typography>
+              </MenuItem>
+            </Link>
+          </Box>
 
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <Link to={"/settings"}>
+                <MenuItem>
+                  <Typography textAlign="center">Inställningar</Typography>
+                </MenuItem>
+              </Link>
+              <Link to={"/orders"}>
+                <MenuItem>
+                  <Typography textAlign="center">Mina beställningar</Typography>
+                </MenuItem>
+              </Link>
+              <Link to={"/favourites"}>
+                <MenuItem>
+                  <Typography textAlign="center">Favoriter</Typography>
+                </MenuItem>
+              </Link>
 
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar sx={{display:'flex', flexDirection:'row', justifyContent:'space-between',}}>
-                    <Box ><IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton></Box>
-
-                    <Box sx={{display:'flex', flexDirection:'row', justifyContent:'left', gap:'1rem', alignItems:'center', alignContent:'center',}}>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>  <Link to="/">Home</Link></Typography>
-
-                        <Icon path={mdiPartyPopper}
-                              size={1.5}
-                              title="Nyheter"
-                        /><h3>Nyheter</h3>
-
-                        <Icon path={mdiRocketLaunchOutline}
-                              size={1}
-                              title="Topplistan"
-                        /><h3>Topplistan</h3>
-                    </Box>
-
-
-                    <Box sx={{display:'flex', flexDirection:'row', justifyContent:'right', gap:'1rem', alignItems:'center', alignContent:'center',}}>
-                        <Link to="/settings">
-                            <Icon path={mdiAccount}
-                                  title="Logga in på mina sidor"
-                                  size={1.5}
-                                  horizontal
-                                  vertical
-                                  rotate={180}
-                                  color="white" />
-                        </Link>
-
-                        <Icon path={mdiHeartOutline}
-                              title="Favoriter"
-                              size={1.2}
-                        />
-                        <Icon path={mdiCart}
-                              size={1.2}
-                              title="Varukorg"/>
-                    </Box>
-
-
-
-
-
-                </Toolbar>
-            </AppBar>
-
-
-        </Box>
-
-    );
-};
-
+              <MenuItem onClick={logout}>
+                <Typography textAlign="center">Logga ut</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
 export default TopbarLoggedIn;

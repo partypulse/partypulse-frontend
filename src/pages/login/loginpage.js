@@ -1,77 +1,181 @@
-import React, {useState} from "react";
-import api from "../../api/api.js";
-import {Link, useNavigate} from "react-router-dom";
-import {Card, CardActions, CardContent, FormControl, TextField} from "@mui/material";
+import React, { useState } from "react";
+import {
+  Alert,
+  Card,
+  CardContent,
+  CircularProgress,
+  FormControl,
+  Grid,
+  TextField,
+} from "@mui/material";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-
+import api from "../../api/api";
+import { useAuth } from "../../hooks/useAuth";
+import "./LoginPage.css";
 
 function LoginPage() {
-    const navigate=useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [hasUpdated, setHasUpdated] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState("");
+  const [updateType, setUpdateType] = useState("info");
+  const [errorType, setErrorType] = useState("");
 
-    const handleLogin = () => {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    isSubmitting: false,
+    errorMessage: null,
+  });
 
-        api.post('/login', { email, password })
-            .then(response => {
-                const token = response.data.token;
-                const _userId = response.data._userId;
-                localStorage.setItem('token', token);
-                localStorage.setItem('_userId', _userId);
+  const handleInputChange = (event) => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-                //window.alert("Successful login! :) ")
-                //window.location.reload()
-               navigate('/settings')
-            })
-            .catch(error => {
-                setError('Invalid email or password');
-            });
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setData({
+      ...data,
+      isSubmitting: true,
+      errorMessage: null,
+    });
+
+    const loginRequest = {
+      email: data.email,
+      password: data.password,
     };
 
+    api
+      .post("/auth/login", loginRequest)
+      .then((response) => {
+        setData({
+          ...data,
+          isSubmitting: false,
+          errorMessage: null,
+        });
+        login(response.data);
+      })
+      .catch((error) => {
+        setData({
+          ...data,
+          isSubmitting: false,
+          errorMessage: error.response.data.errorMessage,
+        });
+        setErrorType(error.response.data.errorType);
+        setLoading(false);
+        setUpdateMessage(error.response.data.errorMessage);
+        setUpdateType("error");
+        setHasUpdated(true);
+        setTimeout(() => {
+          setUpdateMessage("");
+          setHasUpdated(false);
+          setUpdateType("info");
+        }, 2000);
+      });
+  };
 
-    return (
-        <div>
-            {error && <p>{error}</p>}
-            <Card sx={{width:{xs:'90%',md:'400px'},margin:'3rem auto'}}>
-                <CardContent>
-                    <h2>Login</h2>
+  const hasPasswordError =
+    hasUpdated && updateType === "error" && errorType === "incorrect-password";
+  const hasUserNameError =
+    hasUpdated && updateType === "error" && errorType === "no-user-found";
+  const hasUnknownError =
+    hasUpdated && updateType === "error" && errorType === "unknown-error";
 
-                    <FormControl margin='dense' fullWidth>
-                        <TextField value={email} type="text" placeholder="e-post" onChange={(e) => setEmail(e.target.value)} name="email"></TextField>
-
+  return (
+    <div className={"login-background"}>
+      <div className="login-container">
+        <Card
+          className={"login-card"}
+          style={{
+            textAlign: "center",
+            height: "320px",
+            marginLeft: "0",
+            borderRadius: "15px",
+          }}
+        >
+          <CardContent>
+            <form onSubmit={handleFormSubmit}>
+              {loading ? (
+                <Grid container>
+                  <Grid
+                    item
+                    xs={12}
+                    style={{ padding: "3rem", textAlign: "center" }}
+                  >
+                    <CircularProgress style={{ margin: "2rem auto" }} />
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid container>
+                  <Grid item xs={12} style={{ paddingTop: "1rem" }}>
+                    <FormControl fullWidth margin="dense">
+                      <TextField
+                        error={hasUserNameError}
+                        helperText={hasUserNameError && updateMessage}
+                        id="email"
+                        style={{ background: "white" }}
+                        placeholder="Epost"
+                        name="email"
+                        onChange={handleInputChange}
+                        type="text"
+                        variant="outlined"
+                        value={data.email}
+                      />
                     </FormControl>
-                    <FormControl margin='dense' fullWidth>
-                        <TextField value={password} type="password" placeholder="lösenord" onChange={(e) => setPassword(e.target.value)} name="password"></TextField>
-
+                  </Grid>
+                  <Grid item xs={12} style={{ height: "4rem" }}>
+                    <FormControl fullWidth margin="dense">
+                      <TextField
+                        error={hasPasswordError}
+                        helperText={hasPasswordError && updateMessage}
+                        id="password"
+                        style={{ background: "white" }}
+                        placeholder="Lösenord"
+                        name="password"
+                        variant="outlined"
+                        onChange={handleInputChange}
+                        type="password"
+                        value={data.password}
+                      />
                     </FormControl>
-                </CardContent>
-
-                <CardActions>
-                    <Button size="large" className="loginbutton"
-                            sx={{
-                                textTransform: 'none',
-                                backgroundColor: {
-                                    xs:'lightblue',sm:'blue',md:'green',lg:'yellow',xl:'pink'
-                                },
-                            }} variant="contained" onClick={handleLogin}>Login</Button>
-
-
-                </CardActions>
-
-
-
-            </Card>
-
-                <div className="registerbox">
-                <p>or</p>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}><Link to="/register">Register</Link> </Typography>
-                </div>
-
-
-        </div>
-    );
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth margin="dense">
+                      <Button
+                        className="login-button"
+                        disabled={data.isSubmitting}
+                        onClick={handleFormSubmit}
+                        size="large"
+                        style={{
+                          background: "#000000",
+                          padding: "15px",
+                          textTransform: "none",
+                          color: "white",
+                        }}
+                        type="submit"
+                        variant="contained"
+                      >
+                        Logga in
+                      </Button>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    {hasUnknownError && (
+                      <Alert severity={updateType}>{updateMessage}</Alert>
+                    )}
+                  </Grid>
+                </Grid>
+              )}
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;
