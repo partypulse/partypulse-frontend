@@ -40,7 +40,7 @@ export default function UserSettingsPage() {
   function saveToServer(requestObject) {
     isLoading(true);
     api
-      .post("/user/updateuser", requestObject)
+      .put("/user/updateuser/" + data._id, requestObject)
       .then(() => {
         isLoading(false);
         setUpdateMessage("Sparat!");
@@ -110,8 +110,8 @@ export default function UserSettingsPage() {
           <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="dense">
               <TextField
-                id="firstName"
-                name="firstName"
+                id="firstname"
+                name="firstname"
                 size="small"
                 helperText="Förnamn"
                 value={data.firstname}
@@ -123,9 +123,9 @@ export default function UserSettingsPage() {
           <Grid item xs={12} md={6}>
             <FormControl fullWidth margin="dense">
               <TextField
-                id="lastName"
+                id="lastname"
                 size="small"
-                name="lastName"
+                name="lastname"
                 helperText="Efternamn"
                 value={data.lastname}
                 variant="outlined"

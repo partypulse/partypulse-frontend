@@ -9,7 +9,9 @@ export const ApplicationContext = ({ children, setNotFound }) => {
     firstName: "",
     lastName: "",
     uid: "",
+    totalPrice: 0,
     tid: "",
+    cart: [],
   });
   return (
     <AppContext.Provider value={[appState, setAppstate]}>

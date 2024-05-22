@@ -52,6 +52,7 @@ function LoginPage() {
     api
       .post("/auth/login", loginRequest)
       .then((response) => {
+        console.log(response.data);
         setData({
           ...data,
           isSubmitting: false,
@@ -65,6 +66,8 @@ function LoginPage() {
           isSubmitting: false,
           errorMessage: error.response.data.errorMessage,
         });
+        console.error(error);
+
         setErrorType(error.response.data.errorType);
         setLoading(false);
         setUpdateMessage(error.response.data.errorMessage);

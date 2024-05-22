@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
       setTid(data.tid);
       setUid(data.uid);
 
-      navigate("/settings");
+      navigate("/products");
     } catch (error) {
       console.error("Login failed:", error);
       // Handle login failure

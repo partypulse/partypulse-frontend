@@ -12,7 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
+import { Divider } from "@mui/material";
 
 function TopbarLoggedIn() {
   const { logout } = useAuth();
@@ -43,7 +44,7 @@ function TopbarLoggedIn() {
             variant="h6"
             noWrap
             component="a"
-            href="/start"
+            href="/products"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -147,7 +148,7 @@ function TopbarLoggedIn() {
                   <Typography textAlign="center">Inställningar</Typography>
                 </MenuItem>
               </Link>
-              <Link to={"/orders"}>
+              <Link to={"/myorders"}>
                 <MenuItem>
                   <Typography textAlign="center">Mina beställningar</Typography>
                 </MenuItem>
@@ -157,7 +158,19 @@ function TopbarLoggedIn() {
                   <Typography textAlign="center">Favoriter</Typography>
                 </MenuItem>
               </Link>
-
+              <Link to={"/cart"}>
+                <MenuItem>
+                  <Typography textAlign="center">Cart</Typography>
+                </MenuItem>
+              </Link>
+              <Divider />
+              {localStorage.getItem("role") === "admin" && (
+                <Link to={"/admin"}>
+                  <MenuItem>
+                    <Typography textAlign="center">Admin</Typography>
+                  </MenuItem>
+                </Link>
+              )}
               <MenuItem onClick={logout}>
                 <Typography textAlign="center">Logga ut</Typography>
               </MenuItem>

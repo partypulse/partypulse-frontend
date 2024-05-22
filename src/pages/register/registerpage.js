@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import api from "../../api/api.js"; // har axios-klient där
+import api from "../../api/api.js";
+import { useAuth } from "../../hooks/useAuth"; // har axios-klient där
 
 function RegisterPage() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -10,8 +12,13 @@ function RegisterPage() {
     e.preventDefault(); // sidan laddas inte om
 
     try {
-      const response = await api.post("/register", { email, password });
-      setMessage(response.data.message);
+      api
+        .post("/auth/register", { email, password })
+        .then((response) => {
+          setMessage(response.data.message);
+          login(response.data);
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       setMessage(error.response.data.message);
     }
@@ -43,6 +50,5 @@ function RegisterPage() {
     </div>
   );
 }
-
 
 export default RegisterPage;

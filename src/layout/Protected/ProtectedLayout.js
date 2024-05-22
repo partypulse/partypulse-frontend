@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
-import { ApplicationContext } from "../contexts/ApplicationContext";
+import { ApplicationContext } from "../../contexts/ApplicationContext";
 
-import TopbarLoggedIn from "../components/TopbarLoggedIn";
+import TopbarLoggedIn from "./TopbarLoggedIn";
 
 const ProtectedLayout = () => {
   const outlet = useOutlet();
