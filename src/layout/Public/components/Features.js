@@ -11,20 +11,18 @@ function Features() {
             <img src={features} width="200" alt="features" />
           </div>
           <div className="section-text">
-            <div className="section-text__title">Featured products</div>
+            <div className="section-text__title">Kategorier</div>
 
             <div className="row">
               <div className="feature-box col-50">
-                <div className="section-text__title-small">Easy to Filter</div>
+                <div className="section-text__title-small">Nyheter</div>
                 <div className="section-text__desc">
                   Lorem psum olorsit amet ectetur adipiscing elit, sed dov.
                 </div>
               </div>
 
               <div className="feature-box col-50">
-                <div className="section-text__title-small">
-                  Various Varieties
-                </div>
+                <div className="section-text__title-small">Topplistan</div>
                 <div className="section-text__desc">
                   Lorem psum olorsit amet ectetur adipiscing elit, sed dov.
                 </div>
@@ -33,16 +31,14 @@ function Features() {
 
             <div className="row">
               <div className="feature-box col-50">
-                <div className="section-text__title-small">
-                  Customer Support
-                </div>
+                <div className="section-text__title-small">Temafester</div>
                 <div className="section-text__desc">
                   Aorem psum olorsit amet ectetur adipiscing elit, sed dov.
                 </div>
               </div>
 
               <div className="feature-box col-50">
-                <div className="section-text__title-small">Work Assured</div>
+                <div className="section-text__title-small">Födelsedag</div>
                 <div className="section-text__desc">
                   Aorem psum olorsit amet ectetur adipiscing elit, sed dov.
                 </div>

@@ -2,8 +2,11 @@ import React, { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
+// This is the place where authentication information will be shared and made available to components.
 const AuthContext = createContext();
 
+// AuthProvider: It accepts children as props, which are the components to be wrapped by the authentication context.
+// Uses useLocalStorage to create various local storage variables for user information, such as user credentials, role, name, and identification.
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", null);
   const [_userId, setUserId] = useLocalStorage("_userId", null);
@@ -15,6 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  // Upon login, the user information is put into local storage and the user is redirected to "/products".
   const login = async (data) => {
     try {
       setUser(data);
@@ -32,6 +36,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Upon logout, the user information is cleared from local storage and the user is redirected to the home page ("/").
   const logout = () => {
     try {
       setUser(null);
@@ -48,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Uses useMemo to memorize the authentication value and avoid unnecessary renderings.
   const value = useMemo(
     () => ({
       user,

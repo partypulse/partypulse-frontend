@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { useScrollYPosition } from "react-use-scroll-position";
 import "../css/navbar.css";
 
-function Navbar({ links }) {
+function PublicNavbar({ links }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrollY = useScrollYPosition();
 
@@ -17,7 +17,7 @@ function Navbar({ links }) {
         }`}
       >
         <div className="nav-content">
-          <div className="nav-logo">Partypulse</div>
+          <div className="nav-logo">PartyPulse</div>
 
           <nav className="nav-links__container">
             {links &&
@@ -50,7 +50,7 @@ function Navbar({ links }) {
   );
 }
 
-Navbar.defaultProps = {
+PublicNavbar.defaultProps = {
   links: [
     { title: "Home", href: "#home" },
     { title: "Features", href: "#features" },
@@ -60,4 +60,4 @@ Navbar.defaultProps = {
   ],
 };
 
-export default Navbar;
+export default PublicNavbar;

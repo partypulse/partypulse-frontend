@@ -25,7 +25,7 @@ section {
 
 @media screen and (max-width: 700px) {
     section {
-        height: auto;
+        height: 72vh;
     }
 }
 
@@ -75,7 +75,7 @@ section {
     color: rgb(0, 0, 0);
     font-size: 1.2rem;
     line-height: 30px;
-    margin-bottom: 15px;
+    margin-top: 5rem;
     font-weight: 400;
     max-width: 650px;
     background-color: rgb(248, 244, 132);
@@ -120,6 +120,7 @@ section {
     position: absolute;
     z-index: 1;
     text-align: center;
+    margin-top:3rem;
 }
 
 .section-image {
@@ -142,7 +143,7 @@ section {
 @media screen and (max-width: 700px) {
     /*.section-image,*/
     .section-text__subtitle,
-    .section-image-features,
+    .section-image-features img,
     .section-image__small {
         display: none;
     }
@@ -150,16 +151,56 @@ section {
     .section-text__title-big {
         font-size:2.2rem;
         line-height:1.9rem;
-        margin-top:7rem;
+        background-color: rgba(192, 255, 243, 0.84);
+        padding-top:0.4rem;
+        padding-bottom:0.4rem;
     }
 
     .section-text__body{
-        max-width:400px;
+        max-width:600px;
+        margin-top:0;
+        color: transparent;
+        background-image: linear-gradient(to left, #cd00d9, #7B68EE, #3498db, #2eccba, #cd00d9);
+        webkit-background-clip: text;
+        background-clip: text;
+        animation: color 3s linear infinite;
+        /*background-size: 500%;*/
+        -webkit-transform: translate3d(0,0,0);
+        -webkit-backface-visibility: hidden;
+        font-weight: bold;
+        font-size: 1.3rem;
+        line-height: 1.5;
     }
+
 
     .section-image{
         width:100%;
+        position: absolute;
+        height: 100%;
+
     }
+
+    .section-image img{
+        object-fit: none;
+    }
+
+    .hero-image{
+        height:500px;
+    }
+
+
+
+    .download-btn{
+        top:20rem;
+        position: absolute;
+        left:9rem;
+    }
+
+    .hero-section{
+        margin:0;
+    }
+
+
 }
 
 .feature-box {
@@ -228,7 +269,7 @@ section {
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s linear;
-    margin: 0;
+    margin-top: 3rem;
 }
 .download-btn:hover {
     background-color: #ea944d;
@@ -405,8 +446,8 @@ section#download .section-image {
 .row {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    padding: 30px 0;
+    align-items: flex-start;
+    /*padding: 30px 0;*/
 }
 .col-50 {
     width: 50%;

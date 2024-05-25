@@ -175,7 +175,7 @@ const ProductList = () => {
                       color="primary"
                       onClick={() => handleAddToCart(product)}
                     >
-                      Add to Cart
+                      Lägg till varukorgen
                     </Button>
                   )}
                 </CardActions>
