@@ -131,12 +131,12 @@ const ProductList = () => {
   };
 
   return (
-    <div className="start-page">
+    <div className="start-page" style={{ backgroundColor: "#f9f7f7" }}>
       <div className="product-grid">
         <Grid container spacing={2}>
           {products.map((product) => (
             <Grid item xs={12} md={4} xl={3} key={product._id}>
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ maxWidth: 270, height: "100%" }}>
                 <CardActionArea onClick={() => handleViewDetails(product._id)}>
                   <CardMedia
                     component="img"
@@ -146,14 +146,28 @@ const ProductList = () => {
                   />
                   <FavoriteButton product={product} />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      style={{
+                        color: "#333333",
+                        maxHeight: "2rem",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis", // Förkorta texten med ellipsis om det är för långt
+                      }}
+                    >
                       {product.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Price: {product.price} SEK
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      style={{ marginBottom: "0.5rem" }}
+                    >
+                      Pris: {product.price} SEK
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Stock: {product.stock}
+                      Lagersaldo: {product.stock} st
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -166,14 +180,42 @@ const ProductList = () => {
                         handleAddToCart(product, value)
                       }
                     >
-                      <ToggleButton value={1}>+</ToggleButton>
-                      <ToggleButton value={-1}>-</ToggleButton>
+                      <ToggleButton
+                        value={-1}
+                        style={{ backgroundColor: "#ff6699", color: "white" }}
+                      >
+                        -
+                      </ToggleButton>
+
+                      <ToggleButton
+                        value={1}
+                        style={{ backgroundColor: "#ff6699", color: "white" }}
+                      >
+                        +
+                      </ToggleButton>
                     </ToggleButtonGroup>
                   ) : (
                     <Button
                       size="medium"
                       color="primary"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() => {
+                        handleAddToCart(product);
+                        setSelectedProduct(product);
+                        setSnackbarOpen(true);
+                      }}
+                      style={{
+                        backgroundColor: "#ff6699",
+                        color: "white",
+                        width: "100%",
+                        transition: "background-color 0.3s",
+                        "&:hover": {
+                          backgroundColor: "#700d6e",
+                          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+                        },
+                        "&:active": {
+                          backgroundColor: "#5cb271",
+                        },
+                      }}
                     >
                       Lägg till varukorgen
                     </Button>
@@ -186,14 +228,14 @@ const ProductList = () => {
       </div>
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={handleSnackbarClose}
         message={`Added ${selectedProduct && selectedProduct.name} to cart`}
       />
       {appState.cart.length > 0 && (
         <AppBar
           position="fixed"
-          sx={{ top: "auto", bottom: 0, background: "pink" }}
+          sx={{ top: "auto", bottom: 0, background: "rgba(165,115,239,0.99)" }}
         >
           <Toolbar>
             <Button
@@ -206,8 +248,9 @@ const ProductList = () => {
               variant="contained"
               onClick={() => navigate("/checkout")}
               startIcon={<ShoppingCartCheckout />}
+              style={{ backgroundColor: "#333333", color: "white" }}
             >
-              Till kassan
+              Go to Checkout
             </Button>
           </Toolbar>
         </AppBar>
@@ -216,7 +259,7 @@ const ProductList = () => {
         <AppBar
           position="fixed"
           color="primary"
-          sx={{ top: "auto", bottom: 56, zIndex: 1000, background: "pink" }}
+          sx={{ top: "auto", bottom: 56, zIndex: 1000, background: "#ff6699" }}
         >
           <Toolbar>
             <TableContainer component={Paper} sx={{ padding: 0, margin: 0 }}>

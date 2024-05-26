@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import gplay from "../../../images/app_btn2.webp";
-import ios from "../../../images/app_btn1.webp";
-import download from "../../../images/download.svg";
+import gplay from "../images/app_btn2.webp";
+import ios from "../images/app_btn1.webp";
+import download from "../images/download.svg";
 
 function Download() {
   return (

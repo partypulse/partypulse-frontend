@@ -33,6 +33,7 @@ export const style = {
     fontSize: "5rem",
   },
 };
+
 const ProductPage = () => {
   // get id from url
   const { id } = useParams();
@@ -174,7 +175,7 @@ const ProductPage = () => {
                 padding: "10px 20px",
                 borderRadius: "8px",
                 "&:hover": {
-                  backgroundColor: "#2bc700",
+                  backgroundColor: "#22700d",
                   boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 },
               }}

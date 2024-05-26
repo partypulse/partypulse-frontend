@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
-import { ApplicationContext } from "../../contexts/ApplicationContext";
-
-import TopbarLoggedIn from "./TopbarLoggedIn";
+import { ApplicationContext } from "../contexts/ApplicationContext";
+import Navbar from "./Navbar";
+import "../css/styles.css";
 
 const ProtectedLayout = () => {
   const outlet = useOutlet();
@@ -21,12 +21,8 @@ const ProtectedLayout = () => {
     <ApplicationContext>
       <CssBaseline />
 
-      <div className="app">
-        <main className="content">
-          <TopbarLoggedIn />
-          {outlet}
-        </main>
-      </div>
+      <Navbar />
+      {outlet}
     </ApplicationContext>
   );
 };

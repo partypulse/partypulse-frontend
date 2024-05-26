@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import features from "../../../images/festbild1.png";
+import features from "../images/festbild1.png";
 
 function Features() {
   return (

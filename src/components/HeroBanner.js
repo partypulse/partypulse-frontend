@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import heroImage from "../../../images/balloons_banner.png";
+import heroImage from "../images/balloons_banner.png";
 import { Link } from "react-router-dom";
 
 function HeroBanner() {
