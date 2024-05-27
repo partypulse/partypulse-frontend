@@ -296,9 +296,9 @@ section#pricing {
 }
 
 .pricing-upper {
-    height: calc(50vh - 80px);
+    /*height: calc(50vh - 80px);*/
     padding: 40px 24px;
-    background-color: #9fabe8;
+    /*background-color: #9fabe8;*/
 }
 .pricing-lower {
     height: 70vh;
@@ -406,7 +406,7 @@ section#pricing {
 
 section#download {
     position: relative;
-    height: 60vh;
+    height: 180vh;
     display: flex;
     background-color: #9fabe8;
 }
@@ -456,4 +456,278 @@ section#download .section-image {
 .col-30 {
     width: 30%;
     padding: 0px 14px;
+}
+
+/* SHOPINFO */
+
+#shop-info{
+        background: url('../images/rainbow.jpg') no-repeat center center/cover;
+        color: #fff;
+        height:70vh;
+}
+
+.shop-info-section {
+    background-color: #2a6923;
+    padding: 50px 0;
+    text-align: center;
+    color: #000;
+    height:40vh;
+}
+
+.shop-info-box {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.shop-info-box::before,
+.shop-info-box::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+    z-index: -1;
+    border-radius: 10px;
+    opacity: 0.6;
+    filter: blur(10px);
+}
+
+.shop-info-title {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.shop-info-text {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.shop-info-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.shop-info-benefits {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(159, 171, 232, 0.8);
+}
+
+.benefit-item {
+    text-align: center;
+    margin: 20px 20px;
+}
+
+.benefit-icon {
+    font-size: 64px;
+    color: #ff69b4;
+    margin-bottom: 10px;
+}
+
+.benefit-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+
+
+
+/* */
+
+#pricing {
+    background: url('../images/blueconfetti.jpg') no-repeat center center/cover;
+    color: #fff;
+}
+
+.pricing-upper {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+
+.pricing-lower {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pricing-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background: #fff;
+    color: #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card__header {
+    margin-bottom: 20px;
+}
+
+.pricing-card__subtitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff69b4; /* Festlig färg */
+}
+
+.pricing-card__title {
+    font-size: 2rem;
+    color: #ff69b4; /* Festlig färg */
+}
+
+.pricing-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pricing-card__features li {
+    margin: 10px 0;
+}
+
+.pricing-card__btn {
+    background: #ff69b4; /* Festlig färg */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.pricing-card__btn:hover {
+    background: #ff1493;
+}
+
+
+
+/** SERVICES */
+
+#services {
+    background: url('../images/bollar.jpg') no-repeat center center/cover;
+    padding: 50px 0;
+    color: #fff;
+}
+
+.service-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    background: #fff;
+    color: #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-card.active {
+    background: #d8afff;
+    color: #fff;
+}
+
+.service-card__icon {
+    font-size: 3rem;
+    color: #ff69b4;
+    margin-bottom: 20px;
+}
+
+.service-card__text-container {
+    padding: 10px 0;
+}
+
+.section-text__title-small {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.section-text__desc {
+    font-size: 1rem;
+    color: #343434;
+}
+
+
+/* download*/
+
+.download-section {
+    background-color: #ff69b4; /* Festlig bakgrundsfärg */
+    padding: 50px 0;
+    color: #fff;
+}
+
+.section-text__title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.section-text__body {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.download-btn__img img {
+    width: 150px;
+    margin: 10px;
+    transition: transform 0.3s;
+}
+
+.download-btn__img img:hover {
+    transform: scale(1.1);
+}
+
+.section-image img {
+    width: 100%;
+    height: auto;
+}
+
+.social-media-row {
+    margin-top: 50px;
+}
+
+.instagram-feed {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.nc-section{
+    background-color: #61dafb;
 }

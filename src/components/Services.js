@@ -4,45 +4,49 @@ function Services() {
   return (
     <section id="services">
       <div className="section-text">
-        <div className="section-text__title-centered">
-          How Felisity can help you!
+        <div className="section-text__title-centered text-white">
+          Så kan vi hjälpa dig med dina fester!
         </div>
         <div className="service-cards">
           <div className="service-card">
             <div className="service-card__icon">
-              <ion-icon name="phone-portrait-outline" />
+              <ion-icon name="balloon-outline" />
             </div>
             <div className="service-card__text-container">
-              <div className="section-text__title-small">Easily Usage</div>
+              <div className="section-text__title-small">
+                Ballonger och Dekorationer
+              </div>
               <div className="section-text__desc">
-                Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                tempor incididunt ut laborea.
+                Vi erbjuder ett brett utbud av ballonger och festdekorationer
+                för att göra din fest oförglömlig.
               </div>
             </div>
           </div>
 
           <div className="service-card active">
             <div className="service-card__icon">
-              <ion-icon name="people-outline" />
+              <ion-icon name="gift-outline" />
             </div>
             <div className="service-card__text-container">
-              <div className="section-text__title-small">Elite Clientele</div>
+              <div className="section-text__title-small">
+                Personliga Festpaket
+              </div>
               <div className="section-text__desc">
-                Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                tempor incididunt ut laborea.
+                Skapa skräddarsydda festpaket som passar just dina behov och gör
+                din fest unik.
               </div>
             </div>
           </div>
 
           <div className="service-card">
             <div className="service-card__icon">
-              <ion-icon name="chatbubble-ellipses-outline" />
+              <ion-icon name="sparkles-outline" />
             </div>
             <div className="service-card__text-container">
-              <div className="section-text__title-small">Quick Messaging</div>
+              <div className="section-text__title-small">Specialeffekter</div>
               <div className="section-text__desc">
-                Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                tempor incididunt ut laborea.
+                Låt oss förse din fest med fantastiska specialeffekter som
+                konfettikanoner och glitterdraperier.
               </div>
             </div>
           </div>

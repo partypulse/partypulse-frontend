@@ -5,59 +5,64 @@ function Pricing() {
     <section id="pricing">
       <div className="pricing-upper">
         <div className="section-text__title-centered text-white">
-          A Plan for Every Cats's Needs
+          Priser för Alla Dina Festbehov
         </div>
       </div>
       <div className="pricing-lower">
         <div className="pricing-cards">
           <div className="pricing-card">
             <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">Spynx</span>
+              <span className="pricing-card__subtitle">Basic Party Pack</span>
               <div className="pricing-card__title">
-                $30<span> / month</span>
+                299<span> SEK / månad</span>
               </div>
             </div>
             <ul className="pricing-card__features">
-              <li>5 Matches Per Day</li>
-              <li>10 Messages Per Day</li>
-              <li>Unlimited App Usage</li>
+              <li>10 Ballonger</li>
+              <li>5 Partyhattar</li>
+              <li>1 Konfettikanon</li>
             </ul>
             <a href="#pricing" className="pricing-card__btn">
-              Get started
+              Beställ nu
             </a>
           </div>
 
           <div className="pricing-card">
             <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">Persian</span>
+              <span className="pricing-card__subtitle">Premium Party Pack</span>
               <div className="pricing-card__title">
-                $56<span> / month</span>
+                499<span> SEK / månad</span>
               </div>
             </div>
             <ul className="pricing-card__features">
-              <li>Unlimited Matches</li>
-              <li>Unlimited Messages</li>
-              <li>Unlimited App Usage</li>
+              <li>20 Ballonger</li>
+              <li>10 Partyhattar</li>
+              <li>2 Konfettikanoner</li>
+              <li>1 Glitterdraperi</li>
             </ul>
             <a href="#pricing" className="pricing-card__btn">
-              Get started
+              Beställ nu
             </a>
           </div>
 
           <div className="pricing-card">
             <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">Maine</span>
+              <span className="pricing-card__subtitle">
+                Ultimate Party Pack
+              </span>
               <div className="pricing-card__title">
-                $20<span> / month</span>
+                699<span> SEK / månad</span>
               </div>
             </div>
             <ul className="pricing-card__features">
-              <li>Priority Listings</li>
-              <li>Unlimited Matches & Messages</li>
-              <li>Unlimited App Usage</li>
+              <li>50 Ballonger</li>
+              <li>25 Partyhattar</li>
+              <li>5 Konfettikanoner</li>
+              <li>2 Glitterdraperier</li>
+              <li>1 Fotobås-kit</li>
             </ul>
             <a href="#pricing" className="pricing-card__btn">
-              Get started
+              Beställ nu
             </a>
           </div>
         </div>

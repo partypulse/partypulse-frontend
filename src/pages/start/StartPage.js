@@ -5,6 +5,7 @@ import Features from "../../components/Features";
 import Services from "../../components/Services";
 import Pricing from "../../components/Pricing";
 import Download from "../../components/Download";
+import ShopInfo from "../../components/ShopInfo";
 import Footer from "../../layout/Footer";
 import "../../css/styles.css";
 
@@ -18,6 +19,7 @@ function StartPage() {
         <Services />
         <Pricing />
         <Download />
+        <ShopInfo />
       </main>
       <Footer />
     </>
