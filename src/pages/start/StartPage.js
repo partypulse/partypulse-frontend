@@ -8,6 +8,7 @@ import Download from "../../components/Download";
 import ShopInfo from "../../components/ShopInfo";
 import Footer from "../../layout/Footer";
 import "../../css/styles.css";
+import BalloonProducts from "../../components/BalloonProducts";
 
 function StartPage() {
   return (
@@ -16,6 +17,7 @@ function StartPage() {
       <main>
         <HeroBanner />
         <Features />
+        <BalloonProducts />
         <Services />
         <Pricing />
         <Download />
