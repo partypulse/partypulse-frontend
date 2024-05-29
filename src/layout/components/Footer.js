@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/footer.css";
+import "../../css/footer.css";
 import { Add } from "@mui/icons-material";
 
 function Footer() {

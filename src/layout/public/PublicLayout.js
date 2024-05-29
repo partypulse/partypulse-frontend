@@ -1,7 +1,9 @@
 import { Navigate, useOutlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-
+import { useAuth } from "../../hooks/useAuth";
 import * as React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "../../css/styles.css";
 
 export const PublicLayout = (props) => {
   const { tid } = useAuth();
@@ -11,5 +13,10 @@ export const PublicLayout = (props) => {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return <div>{outlet}</div>;
+  return (
+    <div>
+      <Navbar />
+      <main>{outlet}</main> <Footer />
+    </div>
+  );
 };

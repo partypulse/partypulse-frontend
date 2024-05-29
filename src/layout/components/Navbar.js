@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useScrollYPosition } from "react-use-scroll-position";
-import "../css/navbar.css";
-import { useAuth } from "../hooks/useAuth";
+import "../../css/navbar.css";
+import { useAuth } from "../../hooks/useAuth";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -28,30 +28,30 @@ function Navbar({ links }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const stickeyTrigger = window.innerHeight / 2.75;
+  const stickeyTrigger = window.innerHeight / 1.75;
 
   const loggedOutLinks = [
-    { title: "Home", href: "#home" },
-    { title: "Nyheter", href: "#news" },
-    { title: "Kampanj", href: "#campaign" },
-    { title: "Inspiration", href: "#inspiration" },
-    { title: "Contact", href: "#contact" },
+    { title: "Home", href: "/#home" },
+    { title: "Nyheter", href: "/#news" },
+    { title: "Kampanj", href: "/#campaign" },
+    { title: "Inspiration", href: "/#inspiration" },
+    { title: "Contact", href: "/#contact" },
   ];
   const loggedInLinks = [
     { title: "Produkter", href: "/products" },
     { title: "Favoriter", href: "/favourites" },
   ];
-  console.log(isAuthenticated);
   return (
     <Container>
       <div
-        className={`nav${scrollY > stickeyTrigger ? " nav-stickey" : ""}${
+        className={`nav${scrollY > stickeyTrigger ? " nav-stickey" : " nav-fixed"}${
           menuOpen ? " nav-open" : ""
         }`}
       >
         <div className="nav-content">
-          <div className="nav-logo">PartyPulse</div>
-
+          <Link to={"/"}>
+            <div className="nav-logo">PartyPulse</div>
+          </Link>
           <nav className="nav-links__container">
             {isAuthenticated ? (
               <React.Fragment>
@@ -145,7 +145,6 @@ function Navbar({ links }) {
               </React.Fragment>
             )}
           </nav>
-
           <div
             className="nav-menu__icon"
             onClick={() => setMenuOpen(!menuOpen)}

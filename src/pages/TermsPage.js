@@ -1,5 +1,3 @@
-function TermsPage(){
-
-}
+function TermsPage() {}
 
 export default TermsPage;

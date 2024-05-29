@@ -126,106 +126,102 @@ const ProductList = () => {
   const calculateTotalPrice = () => {
     return appState.cart.reduce(
       (total, item) => total + item.quantity * item.price,
-      0
+      0,
     );
   };
 
   return (
-    <div className="start-page" style={{ backgroundColor: "#f9f7f7" }}>
-      <div className="product-grid">
-        <Grid container spacing={2}>
-          {products.map((product) => (
-            <Grid item xs={12} md={4} xl={3} key={product._id}>
-              <Card sx={{ maxWidth: 270, height: "100%" }}>
-                <CardActionArea onClick={() => handleViewDetails(product._id)}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={product.image}
-                    alt={product.name}
-                  />
-                  <FavoriteButton product={product} />
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      style={{
-                        color: "#333333",
-                        maxHeight: "2rem",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis", // Förkorta texten med ellipsis om det är för långt
-                      }}
+    <div style={{ backgroundColor: "#9fabe8" }}>
+      <Grid container spacing={2}>
+        {products.map((product) => (
+          <Grid item xs={12} md={4} xl={3} key={product._id}>
+            <Card sx={{ maxWidth: 270, height: "100%" }}>
+              <CardActionArea onClick={() => handleViewDetails(product._id)}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={product.image}
+                  alt={product.name}
+                />
+                <FavoriteButton product={product} />
+                <CardContent>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    style={{
+                      color: "#333333",
+                      maxHeight: "2rem",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis", // Förkorta texten med ellipsis om det är för långt
+                    }}
+                  >
+                    {product.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    style={{ marginBottom: "0.5rem" }}
+                  >
+                    Pris: {product.price} SEK
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Lagersaldo: {product.stock} st
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                {appState.cart.some((item) => item._id === product._id) ? (
+                  <ToggleButtonGroup
+                    value={getProductQuantityInCart(product._id)}
+                    exclusive
+                    onChange={(event, value) => handleAddToCart(product, value)}
+                  >
+                    <ToggleButton
+                      value={-1}
+                      style={{ backgroundColor: "#ff6699", color: "white" }}
                     >
-                      {product.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      style={{ marginBottom: "0.5rem" }}
-                    >
-                      Pris: {product.price} SEK
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lagersaldo: {product.stock} st
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  {appState.cart.some((item) => item._id === product._id) ? (
-                    <ToggleButtonGroup
-                      value={getProductQuantityInCart(product._id)}
-                      exclusive
-                      onChange={(event, value) =>
-                        handleAddToCart(product, value)
-                      }
-                    >
-                      <ToggleButton
-                        value={-1}
-                        style={{ backgroundColor: "#ff6699", color: "white" }}
-                      >
-                        -
-                      </ToggleButton>
+                      -
+                    </ToggleButton>
 
-                      <ToggleButton
-                        value={1}
-                        style={{ backgroundColor: "#ff6699", color: "white" }}
-                      >
-                        +
-                      </ToggleButton>
-                    </ToggleButtonGroup>
-                  ) : (
-                    <Button
-                      size="medium"
-                      color="primary"
-                      onClick={() => {
-                        handleAddToCart(product);
-                        setSelectedProduct(product);
-                        setSnackbarOpen(true);
-                      }}
-                      style={{
-                        backgroundColor: "#ff6699",
-                        color: "white",
-                        width: "100%",
-                        transition: "background-color 0.3s",
-                        "&:hover": {
-                          backgroundColor: "#700d6e",
-                          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-                        },
-                        "&:active": {
-                          backgroundColor: "#5cb271",
-                        },
-                      }}
+                    <ToggleButton
+                      value={1}
+                      style={{ backgroundColor: "#ff6699", color: "white" }}
                     >
-                      Lägg till varukorgen
-                    </Button>
-                  )}
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
+                      +
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                ) : (
+                  <Button
+                    size="medium"
+                    color="primary"
+                    onClick={() => {
+                      handleAddToCart(product);
+                      setSelectedProduct(product);
+                      setSnackbarOpen(true);
+                    }}
+                    style={{
+                      backgroundColor: "#ff6699",
+                      color: "white",
+                      width: "100%",
+                      transition: "background-color 0.3s",
+                      "&:hover": {
+                        backgroundColor: "#700d6e",
+                        boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+                      },
+                      "&:active": {
+                        backgroundColor: "#5cb271",
+                      },
+                    }}
+                  >
+                    Lägg till varukorgen
+                  </Button>
+                )}
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

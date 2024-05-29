@@ -20,7 +20,7 @@ const EditProductDialog = ({ open, onClose, product, onSave }) => {
       mainCategory: "",
       subCategory: "",
       image: "",
-    }
+    },
   );
   const [categories, setCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
@@ -128,7 +128,7 @@ const EditProductDialog = ({ open, onClose, product, onSave }) => {
           options={categories}
           getOptionLabel={(option) => option.name}
           value={categories.filter((category) =>
-            formData?.mainCategory?.includes(category._id)
+            formData?.mainCategory?.includes(category._id),
           )}
           onChange={handleMainCategoryChange}
           renderInput={(params) => (
@@ -147,7 +147,7 @@ const EditProductDialog = ({ open, onClose, product, onSave }) => {
           options={categories}
           getOptionLabel={(option) => option.name}
           value={categories.filter((category) =>
-            formData?.subCategory?.includes(category._id)
+            formData?.subCategory?.includes(category._id),
           )}
           onChange={handleSubCategoryChange}
           renderInput={(params) => (

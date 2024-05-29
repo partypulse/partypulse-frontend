@@ -1,7 +1,3 @@
-
-
-function FaqPage(){
-
-}
+function FaqPage() {}
 
 export default FaqPage;

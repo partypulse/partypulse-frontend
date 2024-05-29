@@ -1,5 +1,3 @@
-function PrivacyPage(){
-
-}
+function PrivacyPage() {}
 
 export default PrivacyPage;

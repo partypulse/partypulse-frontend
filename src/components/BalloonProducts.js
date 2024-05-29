@@ -10,7 +10,7 @@ const BalloonProducts = () => {
 
   useEffect(() => {
     api
-      .get("/category/products/category/6654e37f31759d480f00ba78") // Använd kategorins ObjectId
+      .get("/product/productsbycategory/6654e37f31759d480f00ba78") // Använd kategorins ObjectId
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -18,7 +18,7 @@ const BalloonProducts = () => {
       .catch((error) => {
         console.error(error);
         setError(
-          error.response ? error.response.data.message : "An error occurred"
+          error.response ? error.response.data.message : "An error occurred",
         );
         setLoading(false);
       });

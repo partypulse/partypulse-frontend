@@ -62,8 +62,8 @@ const AdminCategoriesPage = () => {
     if (selectedCategory) {
       setData((prevData) =>
         prevData.map((category) =>
-          category._id === savedCategory._id ? savedCategory : category
-        )
+          category._id === savedCategory._id ? savedCategory : category,
+        ),
       );
     } else {
       setData((prevData) => [...prevData, savedCategory]);
