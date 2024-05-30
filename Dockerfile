@@ -10,7 +10,7 @@ RUN npm run build --openssl-legacy-provider
 FROM bitnami/nginx
 USER root
 RUN rm -rf /opt/bitnami/nginx/conf/nginx.conf
-COPY GCP/nginx.conf /opt/bitnami/nginx/conf/nginx.conf
+COPY nginx/nginx.conf /opt/bitnami/nginx/conf/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/build /opt/bitnami/nginx/html/
 EXPOSE 9000
