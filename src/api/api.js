@@ -3,6 +3,8 @@ import axios from "axios";
 const getBaseUrl = () => {
   if (window.location.host === "localhost:3000") {
     return "http://localhost:8000";
+  } else {
+    return "https://partypulse-backend-gge3svjpha-ez.a.run.app";
   }
 };
 
