@@ -5,7 +5,7 @@ COPY package.json .
 COPY package-lock.json .
 RUN npm install
 COPY . .
-RUN npm run build --openssl-legacy-provider
+RUN npm run build
 
 FROM bitnami/nginx
 USER root
