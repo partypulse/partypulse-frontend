@@ -10,9 +10,10 @@ const ProtectedLayout = () => {
 
   const isAuthenticated = useMemo(
     () => localStorage.getItem("tid") !== null,
-    [],
+    []
   );
 
+  // If isAuthenticated is false (no tid was found in localStorage), the user is redirected to the home page.
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }

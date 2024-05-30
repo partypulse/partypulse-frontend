@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import gplay from "../images/app_btn2.webp";
-import ios from "../images/app_btn1.webp";
-import download from "../images/download.svg";
+import balloons from "../images/party-balloons.png";
 
 function Download() {
   useEffect(() => {
@@ -22,25 +20,8 @@ function Download() {
       <Container>
         <Row>
           <Col md={6}>
-            <div className="section-text">
-              <div className="section-text__title text-white">
-                Ladda ner vår app nu!
-              </div>
-              <div className="section-text__body text-white">
-                Gör din festplanering enklare med vår app. Finns tillgänglig på
-                App Store och Google Play.
-              </div>
-              <a href="#download" className="download-btn__img">
-                <img src={ios} alt="app store" />
-              </a>
-              <a href="#download" className="download-btn__img">
-                <img src={gplay} alt="google play store" />
-              </a>
-            </div>
-          </Col>
-          <Col md={6}>
             <div className="section-image">
-              <img src={download} alt="download" />
+              <img src={balloons} alt="balloons" />
             </div>
           </Col>
         </Row>
